@@ -1,0 +1,141 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+}
+
+.step-wizard {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.step-wizard-list {
+    color: #333;
+    list-style-type: none;
+    border-radius: 10px;
+    display: flex;
+    padding: 20px 10px;
+    position: relative;
+    z-index: 10;
+    max-width: 100%; /* Ensuring the progress bar doesn't exceed viewport width */
+    overflow-x: auto; /* Adding horizontal scrolling for small screens */
+}
+
+.step-wizard-item {
+    padding: 0 10px; /* Adjust padding for smaller screens */
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    min-width: 100px; /* Adjust minimum width for smaller screens */
+    position: relative;
+}
+
+.step-wizard-item+.step-wizard-item:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 19px;
+    background: #202A5B;
+    width: 100%;
+    height: 2px;
+    transform: translateX(-50%);
+    z-index: -10;
+}
+
+.progress-count {
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: 600;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+    color: transparent;
+}
+
+.progress-count:after {
+    content: "";
+    height: 40px;
+    width: 40px;
+    background: #202A5B;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: -10;
+}
+
+.progress-count:before {
+    content: "";
+    height: 10px;
+    width: 20px;
+    border-left: 3px solid #fff;
+    border-bottom: 3px solid #fff;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -60%) rotate(-45deg);
+    transform-origin: center center;
+}
+
+.progress-label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.current-item .progress-count:before,
+.current-item~.step-wizard-item .progress-count:before {
+    display: none;
+}
+
+.current-item~.step-wizard-item .progress-count:after {
+    height: 10px;
+    width: 10px;
+}
+
+.current-item~.step-wizard-item .progress-label {
+    opacity: 0.5;
+}
+
+.current-item .progress-count:after {
+    background: #fff;
+    border: 2px solid #202A5B;
+}
+
+.current-item .progress-count {
+    color: #202A5B;
+}
+
+@media (max-width: 720px) {
+    .step-wizard-item {
+        min-width: 50px; /* Adjusting minimum width for smaller screens */
+    }
+
+    .progress-count,
+    .progress-count:after,
+    .progress-count:before {
+        height: 30px; /* Reducing height for smaller screens */
+        width: 30px; /* Reducing width for smaller screens */
+        font-size: 12px; /* Adjusting font size for smaller screens */
+    }
+
+    .progress-label {
+        margin-top: 5px; /* Adjusting margin for smaller screens */
+        font-size: 10px; /* Adjusting font size for smaller screens */
+    }
+}
